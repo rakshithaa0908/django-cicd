@@ -39,7 +39,7 @@ http://master-public-ip:8080
 ## 3. Create Jenkins Pipeline
 
 ### Fork Repository
-`https://github.com/rakshithaa0908/django-notes-app.git`
+`https://github.com/swathis10/django-notes-app`
 
 ### Create a Jenkins pipeline job
 Add stages for:
