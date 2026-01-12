@@ -63,10 +63,7 @@ service.yaml(NodePort)
 Deploy using Jenkins pipeline with `kubectl apply`
 
 ## 6.Access Application
-Get service port:
-`$ kubectl get svc`
-Open in browser:
-`$ http://master-public-dns:node-port`
-
-If the setup is correct, the web application will be accessible from the browser.
+- Get service port: `$ kubectl get svc`
+- Open in browser: `$ http://master-public-dns:node-port`
+- If the setup is correct, the web application will be accessible from the browser.
 ---
