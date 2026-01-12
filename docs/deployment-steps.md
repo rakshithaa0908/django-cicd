@@ -1,5 +1,4 @@
 # Deployment Steps for Django CI/CD Pipeline
-
 This guide outlines how to automate build and deployment of a Django application using Jenkins, Docker, Docker Hub, and Kubernetes on AWS.
 ---
 
