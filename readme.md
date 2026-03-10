@@ -1,10 +1,21 @@
 # Django CI/CD Pipeline
 
-
+This project demonstrates an automated CI/CD pipeline for deploying a Django web application using Jenkins, Docker, and Kubernetes. The pipeline builds a Docker image, pushes it to Docker Hub, and deploys the application to a Kubernetes cluster.
 
 ---
 
 ## Concepts
+
+### Technologies Used
+
+- Jenkins
+- Docker
+- Kubernetes
+- Docker Hub
+- Django
+- AWS EC2
+- Git
+- GitHub
 
 ### Jenkins
 An automation server used to implement continuous integration and continuous deployment pipelines.
@@ -14,6 +25,15 @@ A containerization platform used to package the Django application and its depen
 
 ### Kubernetes
 A container orchestration system used to deploy, scale, and manage the application containers.
+
+## CI/CD Pipeline Workflow
+
+- Developer pushes code to GitHub
+- Jenkins pipeline is triggered
+- Docker image is built using the Dockerfile
+- Image is pushed to Docker Hub
+- Jenkins deploys the application to Kubernetes
+- Kubernetes exposes the application using a NodePort service
 
 ### Key Features
 - Automated CI/CD pipeline for a Django application
@@ -77,6 +97,15 @@ django-cicd/
 
 **Django Web Application**  
 ![Web Application](docs/screenshots/web_application.png)
+
+---
+
+## My Contribution
+
+- Implemented Jenkins CI/CD pipeline
+- Containerized the Django application using Docker
+- Configured Docker Hub image push
+- Deployed the application to Kubernetes using Jenkins
 
 ---
 
