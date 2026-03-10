@@ -83,6 +83,7 @@ django-cicd/
 ## Architecture Diagram
 
 **Django CI/CD – Web Application Architecture**  
+
 ![Architecture](docs/screenshots/architecture.png)
 
 ---
@@ -90,12 +91,15 @@ django-cicd/
 ## Screenshots
 
 **Jenkins Pipeline Stage View**  
+
 ![Stage View](docs/screenshots/stage_view.png)
 
 **Docker Image on Docker Hub**  
+
 ![Docker Hub](docs/screenshots/dockerhub.png)
 
 **Django Web Application**  
+
 ![Web Application](docs/screenshots/web_application.png)
 
 ---
