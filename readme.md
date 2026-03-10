@@ -47,7 +47,14 @@ django-cicd/
 │ 	├── dockerhub.png
 │ 	├── web_application.png
 │ 	└── architecture.png # Architecture diagram
-├── README.md 
+├── notesapp/
+│ ├── deployment.yaml
+│ ├── service.yaml
+├── Dockerfile
+├── Jenkinsfile
+├── manage.py
+├── README.md
+├── requirements.txt 
 └── LICENSE 
 ```
 
