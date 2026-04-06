@@ -16,6 +16,7 @@ This project demonstrates an automated CI/CD pipeline for deploying a Django web
 - AWS EC2
 - Git
 - GitHub
+- Infrastructure as Code (IaC): Kubernetes YAML manifests
 
 ### Jenkins
 Runs on an AWS EC2 instance. Triggered automatically via GitHub Webhook when code is pushed to the repository, starting the pipeline to build, push, and deploy the application.
@@ -33,8 +34,7 @@ Hosts the deployed Django containers. Jenkins applies the deployment.yaml and se
 - Docker image is built using the Dockerfile
 - Image is pushed to Docker Hub
 - Jenkins deploys the application to Kubernetes
-- Kubernetes exposes the application using a NodePort service
-
+- Kubernetes manages the application lifecycle and exposes the service for **High Availability**
 ---
 ## Prerequisites
 Before running this project, ensure you have the following installed and configured:
@@ -107,12 +107,11 @@ This project was built to demonstrate a real-world CI/CD workflow using Jenkins,
 - Kubernetes deployment via Jenkins
 
 ---
-## Limitations
-- Requires Jenkins, Docker, and Kubernetes to be preconfigured before use
-- No HTTPS/TLS configured — application runs over HTTP only
-- NodePort exposure is tied to EC2 public IP (not production-grade)
-- No auto-scaling or health check policies configured
-- Intended for learning and demonstration purposes only
+## Future Enhancements
+- Security: Integration of SSL/TLS certificates via Ingress Controllers for secure FinTech traffic.
+- High Availability: Implementing Horizontal Pod Autoscalers (HPA) to handle unpredictable workloads.
+- Cost Optimization: Transitioning to Spot Instances for Jenkins build nodes to reduce CI/CD infrastructure costs.
+- Health Monitoring: Adding Liveness and Readiness probes to improve the application's Composite SLA.
 
 ---
 ## License
