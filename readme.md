@@ -18,13 +18,13 @@ This project demonstrates an automated CI/CD pipeline for deploying a Django web
 - GitHub
 
 ### Jenkins
-An automation server used to implement continuous integration and continuous deployment pipelines.
+Runs on an AWS EC2 instance. Triggered automatically via GitHub Webhook when code is pushed to the repository, starting the pipeline to build, push, and deploy the application.
 
 ### Docker
-A containerization platform used to package the Django application and its dependencies into portable images.
+Packages the Django app into a container image and pushes it to Docker Hub as part of the Jenkins pipeline.
 
 ### Kubernetes
-A container orchestration system used to deploy, scale, and manage the application containers.
+Hosts the deployed Django containers. Jenkins applies the deployment.yaml and service.yaml to the cluster after every successful build.
 
 ## CI/CD Pipeline Workflow
 
@@ -35,20 +35,18 @@ A container orchestration system used to deploy, scale, and manage the applicati
 - Jenkins deploys the application to Kubernetes
 - Kubernetes exposes the application using a NodePort service
 
-### Key Features
-- Automated CI/CD pipeline for a Django application
-- Docker image build and push to Docker Hub
-- Kubernetes-based deployment using Jenkins
-- Centralized credential management
-- Scalable and repeatable deployment process
-
-### Limitations
-- Requires preconfigured Jenkins and Kubernetes setup
-- NodePort service exposure depends on EC2 availability
-- Designed for learning and demonstration purposes
+---
+## Prerequisites
+Before running this project, ensure you have the following installed and configured:
+- Python 3.x
+- Docker (installed on the same EC2 instance as Jenkins)
+- Docker Hub account (credentials stored in Jenkins)
+- Jenkins (with credentials configured for Docker Hub and Kubernetes)
+- kubectl configured with your cluster
+- AWS EC2 instance (hosts both Jenkins and Docker)
+- Git & GitHub account (with Webhook configured to trigger Jenkins)
 
 ---
-
 ## Deployment Steps
 
 Full deployment instructions:  
@@ -61,28 +59,26 @@ See full deployment instructions [here](docs/deployment-steps.md)
 django-cicd/
 │
 ├── docs/
-│ ├── deployment-steps.md 
-│ └── screenshots/
-│ 	├── stage_view.png 
-│ 	├── dockerhub.png
-│ 	├── web_application.png
-│ 	└── architecture.png # Architecture diagram
+│   ├── deployment-steps.md
+│   └── screenshots/
+│       ├── stage_view.png
+│       ├── dockerhub.png
+│       ├── web_application.png
+│       └── architecture.png
 ├── notesapp/
-│ ├── deployment.yaml
-│ ├── service.yaml
+│   ├── deployment.yaml
+│   └── service.yaml
 ├── Dockerfile
 ├── Jenkinsfile
 ├── manage.py
 ├── README.md
-├── requirements.txt 
-└── LICENSE 
+├── requirements.txt
+└── LICENSE
 ```
 
 ---
 
 ## Architecture Diagram
-
-**Django CI/CD – Web Application Architecture**  
 
 ![Architecture](docs/screenshots/architecture.png)
 
@@ -104,15 +100,21 @@ django-cicd/
 
 ---
 
-## My Contribution
-
-- Implemented Jenkins CI/CD pipeline
-- Containerized the Django application using Docker
-- Configured Docker Hub image push
-- Deployed the application to Kubernetes using Jenkins
+## About This Project
+This project was built to demonstrate a real-world CI/CD workflow using Jenkins, Docker, and Kubernetes on AWS EC2. It covers:
+- End-to-end pipeline automation with Jenkins
+- Docker image build and registry push
+- Kubernetes deployment via Jenkins
 
 ---
+## Limitations
+- Requires Jenkins, Docker, and Kubernetes to be preconfigured before use
+- No HTTPS/TLS configured — application runs over HTTP only
+- NodePort exposure is tied to EC2 public IP (not production-grade)
+- No auto-scaling or health check policies configured
+- Intended for learning and demonstration purposes only
 
+---
 ## License
 
 MIT License. See `LICENSE` file for details.
