@@ -1,5 +1,6 @@
 # Deployment Steps for Django CI/CD Pipeline
 This guide outlines how to automate build and deployment of a Django application using Jenkins, Docker, Docker Hub, and Kubernetes on AWS.
+
 ---
 
 ## 1. AWS Setup
@@ -9,8 +10,7 @@ This guide outlines how to automate build and deployment of a Django application
 - Instance Type: `m7i-flex.large`
 - Key pair: `mykey`
 - Auto assign public IP: enabled
-- Security group: allow all traffic(for demo purpose)
-- Rename instances:
+- Security group: Allow all traffic ⚠️ For demo purposes only — restrict in production- Rename instances:
     - master – Jenkins, Docker, Kubernetes
     - slave – Kubernetes worker
 
@@ -22,47 +22,81 @@ This guide outlines how to automate build and deployment of a Django application
 `$ sudo su -`
 
 ### Install Required Tools
-On the master node, install:
-Jenkins
-Docker
-Kubernetes (kubectl, kubeadm, kubelet)
-Allow Jenkins to run Docker:
+On the master node, install the following:
+
+**Jenkins**
 ```
-usermod -aG docker jenkins
+$ apt install jenkins -y
+$ systemctl start jenkins
+$ systemctl status jenkins
 ```
-Access Jenkins:
+**Docker**
+```
+$ apt install docker.io -y
+$ systemctl start docker
+$ systemctl status docker
+```
+**Kubernetes**
+```
+$ apt install -y kubectl kubeadm kubelet
+$ kubeadm init
+```
+Allow Jenkins to run Docker commands:
+```
+$ usermod -aG docker jenkins
+$ systemctl restart jenkins
+```
+Access Jenkins at:
 ```
 http://master-public-ip:8080
 ```
-
+---
 ## 3. Create Jenkins Pipeline
 
 ### Fork Repository
-`https://github.com/swathis10/django-notes-app`
+Fork the repository to your GitHub account:
+[https://github.com/swathis10/django-notes-app](https://github.com/swathis10/django-notes-app)
+
+### Clone Repository
+```
+$ git clone https://github.com/your-username/django-notes-app.git
+$ cd django-notes-app
+```
 
 ### Create a Jenkins pipeline job
 Add stages for:
-- Clone code
-- Build Docker image
+- Clone code from GitHub
+- Build Docker image using Dockerfile
 - Push image to Docker Hub
+- Deploy application to Kubernetes using kubectl
 ---
 
 ## 4. Docker Image Build & Push
-- Build image using Dockerfile
-- Push image to Docker Hub using Jenkins credentials
+Jenkins handles the build and push automatically via the pipeline.
+Ensure the following credentials are stored in Jenkins:
+- **Docker Hub username and password** — used to push the image
+
+Verify the image was pushed successfully by checking Docker Hub after the pipeline runs.
 
 ## 5. Kubernetes Deployment
+### Add Kubernetes Config as Jenkins Credential
+Add your kubeconfig file as a secret in Jenkins credentials (ID: `k8`).
+This allows Jenkins to authenticate with the Kubernetes cluster.
 
-### Add Kubernetes config as Jenkins secret (k8)
-Create:
+### Apply Kubernetes Manifests
+The repository already includes:
+- `deployment.yaml` — defines the app deployment
+- `service.yaml` — exposes the app via NodePort
+
+Jenkins deploys them automatically using:
 ```
-deployment.yaml
-service.yaml(NodePort)
+$ kubectl apply -f deployment.yaml
+$ kubectl apply -f service.yaml
 ```
-Deploy using Jenkins pipeline with `kubectl apply`
 
 ## 6.Access Application
 - Get service port: `$ kubectl get svc`
-- Open in browser: `$ http://master-public-dns:node-port`
+- Open in browser: `http://master-public-dns:node-port`
 - If the setup is correct, the web application will be accessible from the browser.
 ---
+> ✅ Deployment complete. The Django application is now running on your Kubernetes cluster.
