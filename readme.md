@@ -107,11 +107,12 @@ This project was built to demonstrate a real-world CI/CD workflow using Jenkins,
 - Kubernetes deployment via Jenkins
 
 ---
-## Future Enhancements
-- Security: Integration of SSL/TLS certificates via Ingress Controllers for secure FinTech traffic.
-- High Availability: Implementing Horizontal Pod Autoscalers (HPA) to handle unpredictable workloads.
-- Cost Optimization: Transitioning to Spot Instances for Jenkins build nodes to reduce CI/CD infrastructure costs.
-- Health Monitoring: Adding Liveness and Readiness probes to improve the application's Composite SLA.
+## Limitations
+- Requires Jenkins, Docker, and Kubernetes to be preconfigured before use
+- No HTTPS/TLS configured — application runs over HTTP only
+- NodePort exposure is tied to EC2 public IP (not production-grade)
+- No auto-scaling or health check policies configured
+- Intended for learning and demonstration purposes only
 
 ---
 ## License
